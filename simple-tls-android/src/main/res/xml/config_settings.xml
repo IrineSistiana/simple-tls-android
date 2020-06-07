@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.preference.PreferenceCategory app:title="Settings">
+        <androidx.preference.EditTextPreference
+            app:key="n"
+            app:persistent="false"
+            app:title="Server Name (n)"
+            app:useSimpleSummaryProvider="true" />
+        <androidx.preference.CheckBoxPreference
+            app:key="wss"
+            app:title="Enable WebSocket (wss)"
+            app:summary="Transfer your data via HTTPS. Make sure you also enabled this option in server side"/>
+        <androidx.preference.EditTextPreference
+            app:key="path"
+            app:persistent="false"
+            app:title="WebSocket path (path)"
+            app:useSimpleSummaryProvider="true" />
+        <androidx.preference.CheckBoxPreference
+            app:key="rh"
+            app:title="Enable random header (rh)"
+            app:summary="This might be able to against traffic analysis. Make sure you also enabled this option in server side"/>
+        <androidx.preference.EditTextPreference
+            app:key="cca"
+            app:persistent="false"
+            app:title="Base64 encoded PEM CA (cca)"
+            app:useSimpleSummaryProvider="true" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory app:title="Geek's settings">
+        <androidx.preference.EditTextPreference
+            app:key="timeout"
+            app:persistent="false"
+            app:title="Idle Timeout in sec(timeout)"
+            app:useSimpleSummaryProvider="true" />
+        <androidx.preference.Preference
+            app:key="receivedStr"
+            app:summary="" />
+    </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

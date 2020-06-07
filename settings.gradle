@@ -1,0 +1,2 @@
+include ':simple-tls-android'
+rootProject.name='simple-tls'

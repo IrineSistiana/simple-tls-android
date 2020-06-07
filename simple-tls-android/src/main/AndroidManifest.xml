@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.github.IrineSistiana.shadowsocks.plugin">
+
+    <application
+        android:allowBackup="false"
+        android:extractNativeLibs="true"
+        android:icon="@mipmap/ic_launcher"
+        android:installLocation="internalOnly"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        tools:replace="android:extractNativeLibs">
+
+        <provider
+            android:name="com.github.IrineSistiana.shadowsocks.plugin.simple_tls.BinaryProvider"
+            android:authorities="com.github.IrineSistiana.shadowsocks.plugin.simple_tls.BinaryProvider"
+            android:directBootAware="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN" />
+                <data
+                    android:host="com.github.shadowsocks"
+                    android:pathPrefix="@string/slash_plugin_id"
+                    android:scheme="plugin" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.github.shadowsocks.plugin.id"
+                android:value="@string/plugin_id" />
+            <meta-data
+                android:name="com.github.shadowsocks.plugin.executable_path"
+                android:value="@string/plugin_lib_path" />
+        </provider>
+
+        <activity android:name="com.github.IrineSistiana.shadowsocks.plugin.simple_tls.ConfigActivity">
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_CONFIGURE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="com.github.shadowsocks"
+                    android:path="@string/slash_plugin_id"
+                    android:scheme="plugin" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
