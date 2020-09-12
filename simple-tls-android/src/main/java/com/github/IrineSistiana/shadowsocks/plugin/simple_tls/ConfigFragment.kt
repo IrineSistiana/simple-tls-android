@@ -32,12 +32,11 @@ import kotlin.collections.set
 class ConfigFragment : GeneralConfigFragment() {
     //required
     private val n by lazy { findPreference<EditTextPreference>("n")!! }
-    private val wss by lazy { findPreference<CheckBoxPreference>("wss")!! }
-    private val path by lazy { findPreference<EditTextPreference>("path")!! }
-    private val rh by lazy { findPreference<CheckBoxPreference>("rh")!! }
+    private val pd by lazy { findPreference<CheckBoxPreference>("pd")!! }
     private val cca by lazy { findPreference<EditTextPreference>("cca")!! }
 
     //geek's
+    private val noVerify by lazy { findPreference<CheckBoxPreference>("noVerify")!! }
     private val timeout by lazy { findPreference<EditTextPreference>("timeout")!! }
 
     //debug
@@ -47,20 +46,19 @@ class ConfigFragment : GeneralConfigFragment() {
         get() = PluginOptions().apply {
             this.id = requireContext().getString(R.string.plugin_id)
             if (n.text.isNotBlank()) this["n"] = n.text
-            if (wss.isChecked) this["wss"] = null
-            if (path.text.isNotBlank()) this["path"] = path.text
-            if (rh.isChecked) this["rh"] = null
+            if (pd.isChecked) this["pd"] = null
             if (cca.text.isNotBlank()) this["cca"] = cca.text.trimEnd('=')
 
+            if (noVerify.isChecked) this["no-verify"] = null
             if (timeout.text.isNotBlank()) this["timeout"] = timeout.text
         }
 
     override fun onInitializePluginOptions(options: PluginOptions) {
         n.text = options["n"] ?: ""
-        wss.isChecked = options.contains("wss")
-        path.text = options["path"] ?: ""
-        rh.isChecked = options.contains("rh")
+        pd.isChecked = options.contains("pd")
         cca.text = options["cca"] ?: ""
+
+        noVerify.isChecked = options.contains("no-verify")
         timeout.text = options["timeout"] ?: ""
 
         receivedStr.summary = options.toString()
@@ -69,8 +67,8 @@ class ConfigFragment : GeneralConfigFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.config_settings)
         n.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_VARIATION_URI }
-        path.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_VARIATION_URI }
         cca.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS }
+
         timeout.setOnBindEditTextListener { it.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL }
     }
 }
