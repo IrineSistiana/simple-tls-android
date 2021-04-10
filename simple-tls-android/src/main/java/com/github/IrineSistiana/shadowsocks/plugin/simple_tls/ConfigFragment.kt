@@ -32,7 +32,8 @@ import kotlin.collections.set
 class ConfigFragment : GeneralConfigFragment() {
     //required
     private val n by lazy { findPreference<EditTextPreference>("n")!! }
-    private val pd by lazy { findPreference<CheckBoxPreference>("pd")!! }
+    private val auth by lazy { findPreference<EditTextPreference>("auth")!! }
+    private val mux by lazy { findPreference<EditTextPreference>("mux")!! }
     private val cca by lazy { findPreference<EditTextPreference>("cca")!! }
 
     //geek's
@@ -46,7 +47,8 @@ class ConfigFragment : GeneralConfigFragment() {
         get() = PluginOptions().apply {
             this.id = requireContext().getString(R.string.plugin_id)
             if (n.text.isNotBlank()) this["n"] = n.text
-            if (pd.isChecked) this["pd"] = null
+            if (auth.text.isNotBlank()) this["auth"] = auth.text
+            if (mux.text.isNotBlank()) this["mux"] = mux.text
             if (cca.text.isNotBlank()) this["cca"] = cca.text.trimEnd('=')
 
             if (noVerify.isChecked) this["no-verify"] = null
@@ -55,7 +57,8 @@ class ConfigFragment : GeneralConfigFragment() {
 
     override fun onInitializePluginOptions(options: PluginOptions) {
         n.text = options["n"] ?: ""
-        pd.isChecked = options.contains("pd")
+        auth.text = options["auth"] ?: ""
+        mux.text = options["mux"] ?: ""
         cca.text = options["cca"] ?: ""
 
         noVerify.isChecked = options.contains("no-verify")
@@ -67,8 +70,9 @@ class ConfigFragment : GeneralConfigFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.config_settings)
         n.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_VARIATION_URI }
+        auth.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS }
         cca.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS }
-
+        mux.setOnBindEditTextListener { it.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL }
         timeout.setOnBindEditTextListener { it.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL }
     }
 }

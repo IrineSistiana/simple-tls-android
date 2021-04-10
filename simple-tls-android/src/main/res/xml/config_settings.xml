@@ -6,10 +6,15 @@
             app:persistent="false"
             app:title="Server Name (n)"
             app:useSimpleSummaryProvider="true" />
-        <androidx.preference.CheckBoxPreference
-            app:key="pd"
-            app:title="Enable padding data (pd)"
-            app:summary="This might be able to against traffic analysis. Make sure you also enabled this option in server side"/>
+        <androidx.preference.EditTextPreference
+            app:key="auth"
+            app:persistent="false"
+            app:title="Server Authentication Password (auth)"
+            app:useSimpleSummaryProvider="true" />
+        <androidx.preference.EditTextPreference
+            app:key="mux"
+            app:title="Multiplexing (mux)"
+            app:useSimpleSummaryProvider="true" />
         <androidx.preference.EditTextPreference
             app:key="cca"
             app:persistent="false"
@@ -21,7 +26,7 @@
         <androidx.preference.CheckBoxPreference
             app:key="noVerify"
             app:title="Disable server verify (no-verify)"
-            app:summary="Client won't verify the server's certificate chain and host name. In this mode, TLS is susceptible to man-in-the-middle attacks. This should be used only for testing without -n and -cca."/>
+            app:summary="Client won't verify the server's certificate chain and host name."/>
         <androidx.preference.EditTextPreference
             app:key="timeout"
             app:persistent="false"
